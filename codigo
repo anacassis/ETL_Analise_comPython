@@ -1,0 +1,143 @@
+| import pandas as pd 
+| import os
+
+| os.chdir("C:/Users/Ana Carolina Assis/Desktop/Cursos/Bootcamp Análise De Dados/micro")
+
+| print(os.getcwd())
+C:\Users\Ana Carolina Assis\Desktop\Cursos\Bootcamp Análise De Dados\micro
+
+| dados= pd.read_csv('tiktok1000.csv')
+
+| print(dados)
+
+| dados.dtypes
+Country               object
+Rank                   int64
+Account               object
+Title                 object
+Link                  object
+Subscribers count    float64
+Views avg.           float64
+Likes avg.           float64
+Comments avg.        float64
+Shares avg.          float64
+Scraped               object
+dtype: object
+
+| dados.shape
+(1000, 11)
+
+| dados.columns
+Index(['Country', 'Rank', 'Account', 'Title', 'Link', 'Subscribers count',
+       'Views avg.', 'Likes avg.', 'Comments avg.', 'Shares avg.', 'Scraped'],
+      dtype='object')
+      
+| display(dados)
+	Country	Rank	Account	Title	Link	Subscribers count	Views avg.	Likes avg.	Comments avg.	Shares avg.	Scraped
+0	All	1	billieeilish	BILLIE EILISH	https://www.tiktok.com/@billieeilish	41600000.0	95000000.0	18100000.0	151000.0	54800.0	2022-02-07 16:54:35.641971
+1	All	2	badbunny	Bad Bunny	https://www.tiktok.com/@badbunny	13400000.0	33300000.0	7300000.0	101900.0	106800.0	2022-02-07 16:54:35.641971
+2	All	3	chipmunksoftiktok	Chipmunks of TikTok	https://www.tiktok.com/@chipmunksoftiktok	11400000.0	25000000.0	3000000.0	21800.0	64200.0	2022-02-07 16:54:35.641971
+
+| dados.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1000 entries, 0 to 999
+Data columns (total 11 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   Country            1000 non-null   object 
+ 1   Rank               1000 non-null   int64  
+ 2   Account            1000 non-null   object 
+ 3   Title              998 non-null    object 
+ 4   Link               1000 non-null   object 
+ 5   Subscribers count  1000 non-null   float64
+ 6   Views avg.         1000 non-null   float64
+ 7   Likes avg.         1000 non-null   float64
+ 8   Comments avg.      1000 non-null   float64
+ 9   Shares avg.        1000 non-null   float64
+ 10  Scraped            1000 non-null   object 
+dtypes: float64(5), int64(1), object(5)
+memory usage: 86.1+ KB
+
+|dados.describe()
+	Rank	Subscribers count	Views avg.	Likes avg.	Comments avg.	Shares avg.
+count	1000.000000	1.000000e+03	1.000000e+03	1.000000e+03	1000.000000	1.000000e+03
+mean	500.500000	7.049170e+06	3.700866e+06	4.537407e+05	4559.051000	1.068108e+04
+std	288.819436	1.087267e+07	4.697164e+06	6.964760e+05	7766.145534	1.677724e+05
+min	1.000000	4.300000e+03	5.853000e+05	3.100000e+04	0.000000	2.120000e+02
+25%	250.750000	1.400000e+06	1.800000e+06	2.304500e+05	1600.000000	1.200000e+03
+50%	500.500000	3.700000e+06	2.600000e+06	3.202000e+05	2800.000000	2.400000e+03
+75%	750.250000	8.625000e+06	4.000000e+06	4.783750e+05	4900.000000	5.400000e+03
+max	1000.000000	1.354000e+08	9.500000e+07	1.810000e+07	151000.000000	5.300000e+06
+
+| dados.isna().sum()
+Country              0
+Rank                 0
+Account              0
+Title                2
+Link                 0
+Subscribers count    0
+Views avg.           0
+Likes avg.           0
+Comments avg.        0
+Shares avg.          0
+Scraped              0
+dtype: int64
+
+| dados.loc[dados['Title'].isnull()]
+
+Country	Rank	Account	Title	Link	Subscribers count	Views avg.	Likes avg.	Comments avg.	Shares avg.	Scraped
+834	All	835	iloveyourmomscatt	NaN	https://www.tiktok.com/@iloveyourmomscatt	8200.0	1300000.0	159300.0	4900.0	3300.0	2022-02-07 16:54:35.641971
+987	All	988	carloandsarah	NaN	https://www.tiktok.com/@carloandsarah	3000000.0	2600000.0	177300.0	662.0	2100.0	2022-02-07 16:54:35.641971
+
+| dados.drop(columns=['Country'], inplace=True)
+| dados.drop(columns=['Scraped'], inplace=True)
+
+| display(dados)
+Rank	Account	Title	Link	Subscribers count	Views avg.	Likes avg.	Comments avg.	Shares avg.
+0	1	billieeilish	BILLIE EILISH	https://www.tiktok.com/@billieeilish	41600000.0	95000000.0	18100000.0	151000.0	54800.0
+1	2	badbunny	Bad Bunny	https://www.tiktok.com/@badbunny	13400000.0	33300000.0	7300000.0	101900.0	106800.0
+2	3	chipmunksoftiktok	Chipmunks of TikTok	https://www.tiktok.com/@chipmunksoftiktok	11400000.0	25000000.0	3000000.0	21800.0	642
+
+| print(dados.Title.value_counts())
+Fernanda           2
+Tommy              2
+Max Taylor         2
+Kim and North      2
+Audrey             2
+                  ..
+jessy              1
+Emilly Vick        1
+Hailey Bieber      1
+Roberto Morales    1
+deivis             1
+Name: Title, Length: 992, dtype: int64
+
+| dados['Title'].fillna('Não Possui', inplace=True)
+
+| dados.isna().sum()
+Rank                 0
+Account              0
+Title                0
+Link                 0
+Subscribers count    0
+Views avg.           0
+Likes avg.           0
+Comments avg.        0
+Shares avg.          0
+dtype: int64
+
+| dados.loc[dados['Title'].isnull()]
+
+| dados.to_csv('tiktok.csv')
+
+
+
+
+
+
+
+
+
+
+
+
