@@ -1,9 +1,9 @@
 #### Processos de ETL com Python e suas bibliotecas 
 
-####- PANDAS
+#### - PANDAS
 
-####- NUMPY
+#### - NUMPY
 
-####- MATPLOTLIB
+#### - MATPLOTLIB
 
 #### - SEABORN
